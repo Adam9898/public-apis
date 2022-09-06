@@ -1,10 +1,37 @@
-<main class="container d-flex justify-content-center flex-column mt-5">
-  <p>Get a prediction of a person's age by submitting his or her name. The app uses agify.io's free and public api.</p>
-  <form (ngSubmit)="onSubmit()" #f="ngForm" class="mt-3">
-    <label for="name-input" class="form-label">Your name:</label>
-    <input id="name-input" class="form-control mb-3" type="text" name="name" placeholder="Please type in your name"
-           required ngModel>
-    <button type="submit" class="btn btn-primary">Get age</button>
-  </form>
-  <p *ngIf="age" class="mt-4">The age for {{ name }} is: <b>{{ age }}</b></p>
+<main class="container">
+  <h3>Get a prediction of a person's age, gender, and nationality.</h3>
+    <div class="mt-5">
+    <p>The webapp uses agify.io's free and public api.<br>
+    You can also enable additional predictions by using checkboxes. Gender peridiction is provided by: genderize.io and
+    nationality prediction by nationalize.io</p>
+    <form (ngSubmit)="onSubmit()" #f="ngForm" class="mt-3">
+      <label for="name-input" class="form-label">Your name:</label>
+      <input id="name-input" class="form-control mb-3" type="text" name="name" placeholder="Please type in your name"
+             required ngModel>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="gender" id="gender-checkbox" name="gender" ngModel>
+        <label class="form-check-label" for="gender-checkbox">
+          Predict gender
+        </label>
+      </div>
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" value="nationality" id="nationality-checkbox" name="nationality"
+        ngModel>
+        <label class="form-check-label" for="nationality-checkbox">
+          Predict nationality
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Submit</button>
+      <button *ngIf="age" (click)="onClearResults()" class="btn btn-danger">Clear results</button>
+    </form>
+      <div *ngIf="age" class="card mt-4">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">The age for {{ name }} is: <b>{{ age }}</b></li>
+          <li *ngIf="gender" class="list-group-item">{{ name }} is a <b>{{ gender }}</b> name.</li>
+          <li *ngIf="nationality" class="list-group-item">
+            There is a high chance that you are from <b>{{ nationality }}</b>.
+          </li>
+        </ul>
+      </div>
+  </div>
 </main>
