@@ -1,0 +1,29 @@
+<div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img [src]="tvShow.show.image == null ? 'assets/img/angular_placeholder_edit.jpg' : tvShow.show.image.medium"
+           class="img-fluid rounded-start" alt="{{ tvShow.show.name }}">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{ tvShow.show.name }}</h5>
+        <!-- the api gives us a summary which includes html tags. I am using a regular expression to remove potential
+         tags. We know the source of the html, and it only contains very basic html tags, so it is safe
+         to use it here -->
+        <p class="card-text">{{ tvShow.show.summary.replace(stripHtmlTags, '') | truncate: 155 }}</p>
+        <p class="card-text"><small *ngIf="tvShow.show.genres.length > 0" class="text-muted">
+          Genres: {{ tvShow.show.genres.join(', ') }};
+        </small>
+          <small *ngIf="tvShow.show.rating.average" class="text-muted">
+            Rating: {{ tvShow.show.rating.average }}
+          </small>
+        </p>
+        <button class="btn btn-success" (click)="onSaveInit()" *ngIf="isSavable else deleteButton"
+                [disabled]="isDisabled">Save</button>
+        <ng-template #deleteButton>
+          <button class="btn btn-danger" (click)="onDeleteInit()">Delete</button>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

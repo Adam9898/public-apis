@@ -1,0 +1,23 @@
+<main class="container d-flex justify-content-center flex-column mt-5">
+  <h1>Top 30 Cryptocurrencies</h1>
+  <p>Here you can find a list of the top 30 cryptocurrencies fetched from coingecko.com The prices are display in Euro.</p>
+  <ul class="list-group list-group">
+    <li *ngFor="let crypto of cryptos; let i = index"
+        class="list-group-item d-flex align-items-center"
+        [ngClass]="{'list-group-item-primary': i % 2 !== 0}" >
+        <img class="crypto-icon" [src]="crypto.image" width="30" alt="{{ crypto.name }}">
+        <div class="flex-grow-1">
+          <b class="crypto-name">{{ crypto.name }}</b> <span class="crypto-price">
+          Price: <b>{{ crypto.current_price.toFixed(5) }} €</b>
+        </span>
+          <span>Price change (24h):
+            <span [ngClass]="crypto.price_change_24h < 0 ? 'text-danger' : 'text-success'">
+              {{ crypto.price_change_24h.toFixed(5) }} €
+            </span>
+          </span>
+          <span class="crypto-symbol"><b>{{ crypto.symbol | uppercase }}</b></span>
+        </div>
+
+    </li>
+  </ul>
+</main>

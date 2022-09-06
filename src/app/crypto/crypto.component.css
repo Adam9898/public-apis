@@ -1,0 +1,22 @@
+.crypto-icon {
+  margin-right: 10px;
+}
+
+.crypto-name {
+  margin-right: 10px;
+}
+
+.crypto-price {
+  margin-right: 10px;
+}
+
+.crypto-symbol {
+  float: right;
+}
+
+@media (max-width: 767px) {
+  .crypto-symbol {
+    float: initial;
+    margin-left: 10px;
+  }
+}
